@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_data"
+        android:id="@+id/tv_reference_private"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
@@ -17,7 +17,7 @@
         android:text="内部资料" />
 
     <TextView
-        android:id="@+id/tv_table"
+        android:id="@+id/tv_book"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
@@ -27,7 +27,7 @@
         android:text="图书期刊" />
 
     <TextView
-        android:id="@+id/tv_rules"
+        android:id="@+id/tv_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff"

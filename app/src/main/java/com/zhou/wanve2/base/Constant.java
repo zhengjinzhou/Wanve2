@@ -22,7 +22,5 @@ public class Constant {
     public static  String ssoUrl = "http://121.15.203.82:9210//WAN_MPDA_Pic/Handlers/SingleSignOnHandler.ashx?Action=SingleSignOnByXML";//首次跳转，进行验证合法性.
     public static String iniUrl = "http://121.15.203.82:9210//WAN_MPDA_Pic/Handlers/SingleSignOnHandler.ashx?Action=Redirect&SessionId=";//如果验证通过后，第二次跳转，携带验证后的SessionId执行页面跳转.
     //跳转 地址
-    public static final String baidumap = "PageMain/SearchAPI.html";
-    public static final String zszx_nb = "Material/Material_Search.aspx?sort=ReferencePrivate";//知识中心（内部资料）
 
 }

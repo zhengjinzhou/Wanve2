@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.tv_center)
     TextView tv_center;
     private String websession;
+    private String[] brief_url;
 
     public static Intent newIntent(Context context, String websession) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -48,10 +49,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-
         initBottom();
         websession = getIntent().getStringExtra(Constant.WEBSESSION);//获取websession
-
+        brief_url = getResources().getStringArray(R.array.brief_url);
     }
 
     /**
@@ -69,8 +69,7 @@ public class MainActivity extends BaseActivity {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_index:
-                startActivity(WebActivity.newIntent(this, Constant.iniUrl + websession + "&OpenType=" + Constant.zszx_nb));
-                //startToActivity(WebActivity.class);
+                // startActivity(WebActivity.newIntent(this, Constant.iniUrl + websession + "&OpenType=" + Constant.zszx_nb));
                 ToastUtil.show(getApplicationContext(), "首页");
                 break;
 
@@ -102,6 +101,37 @@ public class MainActivity extends BaseActivity {
         pop.setOutsideTouchable(true);
         pop.setAnimationStyle(R.anim.mypop_anim);
         pop.showAsDropDown(tv_map, Gravity.TOP, 10);
+        contentView.findViewById(R.id.tv_contact).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[11]));
+                pop.dismiss();
+            }
+        });
+
+        contentView.findViewById(R.id.tv_inft).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[12]));
+                pop.dismiss();
+            }
+        });
+
+        contentView.findViewById(R.id.tv_doc).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[13]));
+                pop.dismiss();
+            }
+        });
+
+        contentView.findViewById(R.id.tv_picinfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[14]));
+                pop.dismiss();
+            }
+        });
     }
 
     /**
@@ -118,19 +148,19 @@ public class MainActivity extends BaseActivity {
         pop.setOutsideTouchable(true);
         pop.setAnimationStyle(R.anim.mypop_anim);
         pop.showAsDropDown(tv_center, Gravity.TOP, 10);
-        //内部资料
-        contentView.findViewById(R.id.tv_data).setOnClickListener(new View.OnClickListener() {
+
+        contentView.findViewById(R.id.tv_reference_private).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //WebActivity.newIntent(getApplicationContext(),Constant.iniUrl + websession + Constant.zszx_nb);
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[0]));
                 pop.dismiss();
             }
         });
 
-        contentView.findViewById(R.id.tv_standard).setOnClickListener(new View.OnClickListener() {
+        contentView.findViewById(R.id.tv_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getApplicationContext(), "待续");
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[1]));
                 pop.dismiss();
             }
         });
@@ -138,15 +168,23 @@ public class MainActivity extends BaseActivity {
         contentView.findViewById(R.id.tv_table).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getApplicationContext(), "待续");
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[2]));
                 pop.dismiss();
             }
         });
 
-        contentView.findViewById(R.id.tv_rules).setOnClickListener(new View.OnClickListener() {
+        contentView.findViewById(R.id.tv_unit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getApplicationContext(), "待续");
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[3]));
+                pop.dismiss();
+            }
+        });
+
+        contentView.findViewById(R.id.tv_standard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[4]));
                 pop.dismiss();
             }
         });
@@ -166,26 +204,52 @@ public class MainActivity extends BaseActivity {
         pop.setOutsideTouchable(true);
         pop.setAnimationStyle(R.anim.mypop_anim);
         pop.showAsDropDown(tv_sum, Gravity.TOP, 10);
-        contentView.findViewById(R.id.tv_table).setOnClickListener(new View.OnClickListener() {
+        contentView.findViewById(R.id.tv_pro_stat).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getApplicationContext(), "待续");
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[5]));
+            }
+        });
+
+        contentView.findViewById(R.id.tv_department).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[6]));
                 pop.dismiss();
             }
         });
-        contentView.findViewById(R.id.tv_distribution).setOnClickListener(new View.OnClickListener() {
+
+        contentView.findViewById(R.id.tv_type).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getApplicationContext(), "待续");
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[7]));
                 pop.dismiss();
             }
         });
-        contentView.findViewById(R.id.tv_project).setOnClickListener(new View.OnClickListener() {
+
+        contentView.findViewById(R.id.tv_tze).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.show(getApplicationContext(), "待续");
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[8]));
                 pop.dismiss();
             }
         });
+
+        contentView.findViewById(R.id.tv_reference).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[9]));
+                pop.dismiss();
+            }
+        });
+
+        contentView.findViewById(R.id.tv_brand).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(WebActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession + "&OpenType=" + brief_url[10]));
+                pop.dismiss();
+            }
+        });
+
     }
 }
