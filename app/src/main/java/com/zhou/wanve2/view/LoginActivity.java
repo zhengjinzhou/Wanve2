@@ -177,8 +177,9 @@ public class LoginActivity extends BaseActivity {
                     if (result) {
                         userBean.setUser(etUser);
                         userBean.setPsd(etPsd);
+                        SpUtil.putObject(getApplicationContext(), "userBean", userBean);
+                        startToActivity(MainActivity.class);
                         // 判断是否登录成功  进行服务器验证  验证地址是否正确同时跳转 此为第二次登录
-                        TwoLogin();
                     } else {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -200,103 +201,6 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    /**
-     * 第二次验证登录
-     * <p>
-     * 验证服务器是否变更
-     */
-    private void TwoLogin() {
-        MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/xml; charset=utf-8");//根据C#大牛那边写的头文件 以及登录验证方式
-        OkHttpClient okHttpClient = new OkHttpClient();
-        String strXML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
-                "<REQUEST>" +
-                "<SP_ID>ToWanPic</SP_ID>" +
-                "<PASSWORD>" + "vJo06/qsLDOK5p2FvLqujo8G9eCsjrLJGcg8TGN0QZexSchZjBfneZ1vL4h3BN/EEId5hEBxZWM=" + "</PASSWORD>" +
-                "<USER>yzdw-gly</USER>" +
-                "</REQUEST>";
-        Request request = new Request.Builder().url(Constant.ssoUrl)
-                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, strXML)).build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("", "onFailure: 第二次登录失败 " + e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String string = response.body().string();
-                Log.d(TAG, "onResponse: 第二次登录成功" + string);
-                try {
-                    parseXMLWithPull(string);//对xml的解析
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
-     * xml的pull解析
-     *
-     * @param xmlData
-     * @throws Exception
-     */
-    public void parseXMLWithPull(String xmlData) throws Exception {
-        XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-        XmlPullParser parser = factory.newPullParser();
-        parser.setInput(new StringReader(xmlData));
-        int eventType = parser.getEventType();
-        String websession = "";
-        String resp_code = "";
-        String resp_desc = "";
-        while (eventType != XmlPullParser.END_DOCUMENT) {
-            String nodeName = parser.getName();
-            //Log.d(TAG, "parseXMLWithPull: "+nodeName);
-            switch (eventType) {
-                // 开始解析某个结点
-                case XmlPullParser.START_TAG: {
-                    if ("WEBSESSION".equals(nodeName)) {
-                        websession = parser.nextText();
-                    } else if ("RESP_CODE".equals(nodeName)) {
-                        resp_code = parser.nextText();
-                    } else if ("RESP_DESC".equals(nodeName)) {
-                        resp_desc = parser.nextText();
-                    }
-                    break;
-                }
-                // 完成解析某个结点
-                case XmlPullParser.END_TAG: {
-                    if ("RESPONSE".equals(nodeName)) {
-                        Log.d("MainActivity", "WEBSESSION is " + websession);
-                        Log.d("MainActivity", "RESP_CODE is " + resp_code);
-                        Log.d("MainActivity", "RESP_DESC is " + resp_desc);
-                        if (resp_code.equals("0000")) {
-                            //最后一次验证，即为第三次验证
-                            //ThridLogin(websession);
-                            //缓存
-                            SpUtil.putObject(getApplicationContext(), "userBean", userBean);
-                            startActivity(MainActivity.newIntent(getApplicationContext(), websession));
-                            finish();
-                            dialog.dismiss();
-                        } else {
-                            final String des = resp_desc;
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtil.show(getApplicationContext(), des);
-                                    dialog.dismiss();
-                                }
-                            });
-                        }
-                    }
-                    break;
-                }
-                default:
-                    break;
-            }
-            eventType = parser.next();
-        }
-    }
 
     /**
      * 本应用的第三次验证，文档的第二次请求        不行
@@ -315,9 +219,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 Log.d(TAG, "onResponse: 第三次成功");
-                //缓存
-                SpUtil.putObject(getApplicationContext(), "userBean", userBean);
-                startActivity(MainActivity.newIntent(getApplicationContext(), websession));
+                //startActivity(MainActivity.newIntent(getApplicationContext(), websession));
                 //startToActivity(MainActivity.class);
                 finish();
                 dialog.dismiss();

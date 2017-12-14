@@ -2,22 +2,23 @@
 <resources>
 
     <string-array name="brief_url">
-        <item>PageMain/SearchAPI.html</item><!--知识中心-->
-        <item>Material/Material_Search.aspx?sort=ReferencePrivate</item><!--知识中心，图书期刊-->
-        <item>Material/Material_Search.aspx?sort=BookPeriodical</item><!--知识中心，常用表格-->
-        <item>Material/Material_Search.aspx?sort=DownLoadTable</item><!--知识中心，常用表格-->
-        <item>Material/Material_Search.aspx?sort=UnitRegulation</item><!--知识中心，单位规章-->
+        <item>baidumap</item>
+        <item>zszx_nbzl</item><!--知识中心, 内部资料-->
+        <item>zszx_tsqk</item><!--知识中心，图书期刊-->
+        <item>zszx_cybg</item><!--知识中心，常用表格-->
+        <item>zszx_dwgz</item><!--知识中心，单位规章-->
+        <item>zszx_bzgf</item><!--知识中心，标准规范-->
 
-        <item>Statistics/Project_OverView.aspx?type=ProStat</item><!--统计报表，按项目状态-->
-        <item>Statistics/Project_OverView.aspx?type=Department</item><!--统计报表，项目科室-->
-        <item>Statistics/Project_OverView.aspx?type=Type</item><!--统计报表，项目类别-->
-        <item>Statistics/Project_OverView.aspx?type=TZE</item><!--统计报表，项目投资-->
-        <item>Statistics/Stat_ProListItems.aspx?sort=Reference</item><!--统计报表，汇总统计-->
-        <item>Statistics/ProMaterialBrandSelection.aspx</item><!--统计报表，品牌公开-->
+        <item>tjbb_xmzt</item><!--统计报表，按项目状态-->
+        <item>tjbb_xmks</item><!--统计报表，项目科室-->
+        <item>tjbb_xmlb</item><!--统计报表，项目类别-->
+        <item>tjbb_xmtz</item><!--统计报表，项目投资-->
+        <item>tjbb_hztj</item><!--统计报表，汇总统计-->
+        <item>tjbb_ppgk</item><!--统计报表，品牌公开-->
 
-        <item>Contact/ContactIndex.aspx</item><!--通讯录-->
-        <item>PageMain/ProjectInfo.aspx?PM_BH=</item><!--项目信息-->
-        <item>PageMain/ProjectDocList.aspx?PM_BH=</item><!--项目文件组件-->
-        <item>PageMain/ProjectMedia_RecList_WithPic.aspx?PM_BH=</item><!--项目照片信息-->
+        <item>contack</item><!--通讯录-->
+        <item>pro_info</item><!--项目信息-->
+        <item>pro_docinfo</item><!--项目文件组件-->
+        <item>pro_oicinfo</item><!--项目照片信息-->
     </string-array>
 </resources>

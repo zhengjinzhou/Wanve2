@@ -23,4 +23,5 @@ public class Constant {
     public static String iniUrl = "http://121.15.203.82:9210//WAN_MPDA_Pic/Handlers/SingleSignOnHandler.ashx?Action=Redirect&SessionId=";//如果验证通过后，第二次跳转，携带验证后的SessionId执行页面跳转.
     //跳转 地址
 
+    //正在地址？ http://121.15.203.82:9210/WAN_MPDA_Pic/
 }

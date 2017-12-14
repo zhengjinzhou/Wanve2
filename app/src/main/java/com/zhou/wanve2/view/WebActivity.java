@@ -17,12 +17,12 @@ import com.zhou.wanve2.base.BaseActivity;
 import com.zhou.wanve2.base.Constant;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class WebActivity extends BaseActivity {
 
     private static final String TAG = "WebActivity";
-    @BindView(R.id.webView)
-    WebView webView;
+    @BindView(R.id.webView) WebView webView;
 
     @Override
     public int getLayout() {
@@ -35,9 +35,14 @@ public class WebActivity extends BaseActivity {
         return intent;
     }
 
+    @OnClick(R.id.iv_back) void back(){
+        finish();
+    }
     @Override
     public void init() {
         String toUrl = getIntent().getStringExtra(Constant.NEW_URL);
+        Log.d(TAG, "------------------------------init: "+toUrl);
+
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setJavaScriptEnabled(true);//加载JavaScript
