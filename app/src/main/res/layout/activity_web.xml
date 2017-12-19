@@ -14,18 +14,18 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:padding="16dp">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="44dp"
+                android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/bar_back_white"
              />
 
             <TextView
+                android:paddingTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

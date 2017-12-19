@@ -14,6 +14,10 @@ public class Constant {
     //主页地址
     public static final String HUAMBO_MAIN_URL = BASE_URL + "/DMS_Phone/Login/QuickLogin.aspx?cmd=";
     /*---------------------------------------------------------------------------------------------*/
+
+    //登录地址
+    public static final String LOGIN_URL = "http://121.15.203.82:9210/EIM_PIC//WebService/WebService.asmx";
+
     public static final String WEBSESSION = "WEBSESSION";
     public static final String NEW_URL = "new_url";
     //系统标识

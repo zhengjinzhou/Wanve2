@@ -64,13 +64,22 @@ public class MainActivity extends BaseActivity {
         brief_url = getResources().getStringArray(R.array.brief_url);
     }
 
+    public static Intent newIntent(Context context, String url) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(Constant.NEW_URL, url);
+        return intent;
+    }
+
     private void initWeb() {
+        String new_url = getIntent().getStringExtra(Constant.NEW_URL);
+        Log.d(TAG, "initWeb: "+new_url);
+
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setJavaScriptEnabled(true);//加载JavaScript
         webView.setWebViewClient(mWebViewClient);//这个一定要设置，要不然不会再本应用中加载
         webView.setWebChromeClient(mWebChromeClient);
-        webView.loadUrl("http://121.15.203.82:9210/WAN_MPDA_Pic/PageMain/ProjectList.aspx");
+        webView.loadUrl(new_url);
     }
 
     /**

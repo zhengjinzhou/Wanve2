@@ -57,6 +57,7 @@
             android:src="@drawable/login_icon1" />
 
         <EditText
+            android:text="yzdw-gly"
             android:id="@+id/et_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,6 +86,7 @@
             android:src="@drawable/login_icon2" />
 
         <EditText
+            android:text="wanve1109"
             android:id="@+id/et_psd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
