@@ -116,7 +116,7 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 弹出框
+     * 弹出框  项目
      */
     private void showPopupProject() {
         View contentView = LayoutInflater.from(this).inflate(R.layout.pop_project, null);
@@ -129,34 +129,35 @@ public class MainActivity extends BaseActivity {
         pop.setOutsideTouchable(true);
         pop.setAnimationStyle(R.anim.mypop_anim);
         pop.showAsDropDown(tv_map, Gravity.TOP, 10);
+        //通讯录
         contentView.findViewById(R.id.tv_contact).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TwoLogin(brief_url[11]);
-                pop.dismiss();
-            }
-        });
-
-        contentView.findViewById(R.id.tv_inft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[12]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_doc).setOnClickListener(new View.OnClickListener() {
+        //项目信息
+        contentView.findViewById(R.id.tv_inft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[13]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_picinfo).setOnClickListener(new View.OnClickListener() {
+        //项目文件信息
+        contentView.findViewById(R.id.tv_doc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[14]);
+                pop.dismiss();
+            }
+        });
+        //项目照片信息
+        contentView.findViewById(R.id.tv_picinfo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwoLogin(brief_url[15]);
                 pop.dismiss();
             }
         });
@@ -176,45 +177,45 @@ public class MainActivity extends BaseActivity {
         pop.setOutsideTouchable(true);
         pop.setAnimationStyle(R.anim.mypop_anim);
         pop.showAsDropDown(tv_center, Gravity.TOP, 10);
-
+        //内部资料
         contentView.findViewById(R.id.tv_reference_private).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: "+brief_url[0]);
-                TwoLogin(brief_url[0]);
-                pop.dismiss();
-            }
-        });
-
-        contentView.findViewById(R.id.tv_book).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: "+brief_url[2]);
+                Log.d(TAG, "onClick: "+brief_url[1]);
                 TwoLogin(brief_url[1]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_table).setOnClickListener(new View.OnClickListener() {
+        //图书期刊
+        contentView.findViewById(R.id.tv_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: "+brief_url[2]);
                 TwoLogin(brief_url[2]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_unit).setOnClickListener(new View.OnClickListener() {
+        //常用表格
+        contentView.findViewById(R.id.tv_table).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[3]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_standard).setOnClickListener(new View.OnClickListener() {
+        //单位规章
+        contentView.findViewById(R.id.tv_unit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[4]);
+                pop.dismiss();
+            }
+        });
+        //标准规范
+        contentView.findViewById(R.id.tv_standard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwoLogin(brief_url[5]);
                 pop.dismiss();
             }
         });
@@ -234,50 +235,51 @@ public class MainActivity extends BaseActivity {
         pop.setOutsideTouchable(true);
         pop.setAnimationStyle(R.anim.mypop_anim);
         pop.showAsDropDown(tv_sum, Gravity.TOP, 10);
+        //按项目状态
         contentView.findViewById(R.id.tv_pro_stat).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TwoLogin(brief_url[5]);
-                pop.dismiss();
-            }
-        });
-
-        contentView.findViewById(R.id.tv_department).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[6]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_type).setOnClickListener(new View.OnClickListener() {
+        //项目科室
+        contentView.findViewById(R.id.tv_department).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[7]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_tze).setOnClickListener(new View.OnClickListener() {
+        //项目类别
+        contentView.findViewById(R.id.tv_type).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[8]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_reference).setOnClickListener(new View.OnClickListener() {
+        //项目投资
+        contentView.findViewById(R.id.tv_tze).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[9]);
                 pop.dismiss();
             }
         });
-
-        contentView.findViewById(R.id.tv_brand).setOnClickListener(new View.OnClickListener() {
+        //汇总统计
+        contentView.findViewById(R.id.tv_reference).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TwoLogin(brief_url[10]);
+                pop.dismiss();
+            }
+        });
+        //品牌公开
+        contentView.findViewById(R.id.tv_brand).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TwoLogin(brief_url[11]);
                 pop.dismiss();
             }
         });

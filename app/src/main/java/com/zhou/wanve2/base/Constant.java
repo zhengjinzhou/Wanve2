@@ -23,8 +23,8 @@ public class Constant {
     //系统标识
     public static String SP_ID = "ToEIM_PIC";
     //接入地址   拍照端.
-    public static  String ssoUrl = "http://121.15.203.82:9210//WAN_MPDA_Pic/Handlers/SingleSignOnHandler.ashx?Action=SingleSignOnByXML";//首次跳转，进行验证合法性.
-    public static String iniUrl = "http://121.15.203.82:9210//WAN_MPDA_Pic/Handlers/SingleSignOnHandler.ashx?Action=Redirect&SessionId=";//如果验证通过后，第二次跳转，携带验证后的SessionId执行页面跳转.
+    public static  String ssoUrl = "http://121.15.203.82:9210/EIM_PIC/Handlers/SingleSignOnHandler.ashx?Action=SingleSignOnByXML";//首次跳转，进行验证合法性.
+    public static String iniUrl = "http://121.15.203.82:9210/EIM_PIC/Handlers/SingleSignOnHandler.ashx?Action=Redirect&SessionId=";//如果验证通过后，第二次跳转，携带验证后的SessionId执行页面跳转.
     //跳转 地址
 
     //正在地址？ http://121.15.203.82:9210/WAN_MPDA_Pic/

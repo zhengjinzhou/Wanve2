@@ -24,7 +24,8 @@
         android:background="#fff"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="项目信息" />
+        android:text="项目信息"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_doc"
@@ -33,7 +34,8 @@
         android:background="#fff"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="项目文件信息" />
+        android:text="项目文件信息"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_picinfo"
@@ -42,5 +44,6 @@
         android:background="#fff"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="项目照片信息" />
+        android:text="项目照片信息"
+        android:visibility="gone" />
 </LinearLayout>
