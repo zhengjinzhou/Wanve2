@@ -141,7 +141,7 @@ public class MainActivity extends BaseActivity {
         contentView.findViewById(R.id.tv_inft).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TwoLogin(brief_url[13]);
+                TwoLogin(brief_url[0]);
                 pop.dismiss();
             }
         });

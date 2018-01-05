@@ -16,6 +16,7 @@
         android:padding="10dp"
         android:text="通讯录" />
 
+    <!-- 这里将原来的项目信息换成了项目地图 -->
     <TextView
         android:id="@+id/tv_inft"
         android:layout_width="match_parent"
@@ -24,8 +25,8 @@
         android:background="#fff"
         android:gravity="center_horizontal"
         android:padding="10dp"
-        android:text="项目信息"
-        android:visibility="gone" />
+        android:text="项目信息地图"
+         />
 
     <TextView
         android:id="@+id/tv_doc"

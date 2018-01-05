@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void init() {
         initLogin();//判断是否自动登录
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+       // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         initSp();
     }
 
