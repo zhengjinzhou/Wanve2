@@ -59,18 +59,17 @@ import okhttp3.Response;
 public class LoginActivity extends BaseActivity {
 
     private static final String TAG = "LoginActivity";
-    @BindView(R.id.et_user)
-    EditText et_user;
-    @BindView(R.id.et_psd)
-    EditText et_psd;
-    @BindView(R.id.cb_remember)
-    CheckBox cb_remember;
-    @BindView(R.id.cb_automaticity)
-    CheckBox cb_automaticity;
+    @BindView(R.id.et_user) EditText et_user;
+    @BindView(R.id.et_psd) EditText et_psd;
+    @BindView(R.id.cb_remember) CheckBox cb_remember;
+    @BindView(R.id.cb_automaticity) CheckBox cb_automaticity;
 
-    private UserBean userBean;
-    private SharedPreferences sp;
-    private UserBean bean;
+
+    private boolean isRemember;
+    private boolean isAutomaticity;
+    private String etUser;
+    private String etPsd;
+
 
     @Override
     public int getLayout() {
@@ -79,46 +78,43 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void init() {
-        initLogin();//判断是否自动登录
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        initSp();
+        initCheckBox();
+        initInfo();
     }
 
-    /**
-     * 判断是否记住密码与自动登录
-     */
-    private void initLogin() {
-        bean = (UserBean) SpUtil.getObject(getApplicationContext(), "userBean", UserBean.class);
-        if (bean != null && bean.isAtomatic()) {
-            LoginWebServer();
-            return;
-        }
-        if (bean != null && bean.isRemember()) {
-            et_user.setText(bean.getUser());
-            et_psd.setText(bean.getPsd());
-            cb_remember.setChecked(bean.isRemember());
-        }
-    }
-
-    /**
-     * 获取缓存
-     */
-    private void initSp() {
-        userBean = new UserBean();
-        sp = getSharedPreferences("user", Context.MODE_PRIVATE);
-
+    //勾选框逻辑
+    private void initCheckBox() {
         cb_remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                userBean.setRemember(isChecked);
+                isRemember = isChecked;
             }
         });
         cb_automaticity.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                userBean.setAtomatic(isChecked);
+                isAutomaticity = isChecked;
+                cb_remember.setChecked(isChecked);
             }
         });
+    }
+
+    /**
+     * 获取缓存
+     */
+    private void initInfo() {
+        UserBean userBean = (UserBean) SpUtil.getObject(this,Constant.UserBean,UserBean.class);
+        if (userBean != null && userBean.isAtomatic()){
+            etUser = userBean.getUser();
+            etPsd = userBean.getPsd();
+            FirstLogin(userBean);
+
+        }
+        if (userBean != null && userBean.isRemember()){
+            cb_remember.setChecked(userBean.isRemember());
+            et_user.setText(userBean.getUser());
+            et_psd.setText(userBean.getPsd());
+        }
     }
 
     @OnClick({R.id.bt_login})
@@ -132,19 +128,18 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 初次登录
-     *
+     * <p>
      * 使用webServer
      */
     private void LoginWebServer() {
-        final String etUser;
-        final String etPsd;
-        if (bean != null && bean.isAtomatic()) {
-            etUser = bean.getUser();
-            etPsd = bean.getPsd();
-        } else {
-            etUser = et_user.getText().toString().trim();
-            etPsd = et_psd.getText().toString().trim();
-        }
+        final UserBean userBean = new UserBean();
+        etUser = et_user.getText().toString().trim();
+        etPsd = et_psd.getText().toString().trim();
+        userBean.setPsd(etPsd);
+        userBean.setUser(etUser);
+        userBean.setRemember(isRemember);
+        userBean.setAtomatic(isAutomaticity);
+        Log.d(TAG, "et_psd: " + etPsd);
         if (TextUtils.isEmpty(etUser)) {
             ToastUtil.show(getApplicationContext(), "用户名不能为空");
             return;
@@ -153,63 +148,73 @@ public class LoginActivity extends BaseActivity {
             ToastUtil.show(getApplicationContext(), "用户名不能为空");
             return;
         }
+        FirstLogin(userBean);//初次都能来
+    }
+
+    /**
+     * 初次登录
+     * @param userBean
+     */
+    private void FirstLogin(final UserBean userBean) {
         HashMap<String, String> data = new HashMap<>();
-        data.put("userID",etUser);
-        data.put("userPSW",etPsd);
+        data.put("userID", etUser);
+        data.put("userPSW", etPsd);
         dialog.show();
         WebServiceUtil.callWebService(Constant.LOGIN_URL, "CheckUserLogin", data, new WebServiceUtil.WebServiceCallBack() {
             @Override
             public void callBack(SoapObject result) {
-                if (result != null){
-                    //Log.d(TAG, "callBack: "+result.toString());
+                Log.d(TAG, "callBack: " + Constant.LOGIN_URL);
+                if (result != null) {
+                    Log.d(TAG, "callBack: " + result.toString());
                     String login = result.toString();
                     String substring = login.substring(44);
-                    if (substring.contains("ok")){
-                        //startToActivity(MainActivity.class);
-                        TwoLogin();
+                    if (substring.contains("ok")) {
+                        SpUtil.putObject(LoginActivity.this,Constant.UserBean,userBean);
+                        TwoLogin(etUser);
                         return;
-                    }else if (substring.contains("fail")){
-                        ToastUtil.show(getApplicationContext(),"密码错误");
+                    } else if (substring.contains("fail")) {
+                        ToastUtil.show(getApplicationContext(), "密码错误");
                         dialog.dismiss();
                         return;
-                    }else if (substring.contains("noExists")){
-                        ToastUtil.show(getApplicationContext(),"账号不存在");
+                    } else if (substring.contains("noExists")) {
+                        ToastUtil.show(getApplicationContext(), "账号不存在");
                         dialog.dismiss();
                         return;
-                    }else if (substring.contains("isLock")){
-                        ToastUtil.show(getApplicationContext(),"账号被锁");
+                    } else if (substring.contains("isLock")) {
+                        ToastUtil.show(getApplicationContext(), "账号被锁");
                         dialog.dismiss();
                         return;
-                    }else if (substring.contains("sysErr")){
-                        ToastUtil.show(getApplicationContext(),"系统异常");
+                    } else if (substring.contains("sysErr")) {
+                        ToastUtil.show(getApplicationContext(), "系统异常");
                         dialog.dismiss();
                         return;
-                    }else if (substring.contains("noOpenUse")){
-                        ToastUtil.show(getApplicationContext(),"账号被禁用");
+                    } else if (substring.contains("noOpenUse")) {
+                        ToastUtil.show(getApplicationContext(), "账号被禁用");
                         dialog.dismiss();
                         return;
                     }
-                }else {
-                    ToastUtil.show(getApplicationContext(),"请求失败");
+                } else {
+                    ToastUtil.show(getApplicationContext(), "请求失败");
                 }
             }
         });
     }
-
 
     /**
      * 第二次验证登录
      * <p>
      * 验证服务器是否变更
      */
-    private void TwoLogin() {
+    private void TwoLogin(final String user) {
         MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/xml; charset=utf-8");//根据C#大牛那边写的头文件 以及登录验证方式
         OkHttpClient okHttpClient = new OkHttpClient();
+        String psw = URLEncoder.encode(Constant.PSW);
+        Log.d(TAG, "加密后的密码: " + psw);
         final String strXML = "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
                 "<REQUEST>" +
                 "<SP_ID>ToWanPic</SP_ID>" +
-                "<PASSWORD>" + "vJo06/qsLDOK5p2FvLqujo8G9eCsjrLJGcg8TGN0QZexSchZjBfneZ1vL4h3BN/EEId5hEBxZWM=" + "</PASSWORD>" +
-                "<USER>yzdw-gly</USER>" +
+                "<PASSWORD>" + psw + "</PASSWORD>" +
+                "<USER>"+user+"</USER>" +
                 "</REQUEST>";
         Request request = new Request.Builder().url(Constant.ssoUrl)
                 .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, strXML)).build();
@@ -222,6 +227,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
+                SpUtil.putString(getApplicationContext(),Constant.UserName,user);
                 Log.d(TAG, "onResponse: 第二次登录成功" + string);
                 try {
                     parseXMLWithPull(string);
@@ -232,6 +238,7 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
+    //xml解析
     public void parseXMLWithPull(String xmlData) throws Exception {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser parser = factory.newPullParser();
@@ -264,8 +271,9 @@ public class LoginActivity extends BaseActivity {
                         Log.d("MainActivity", "RESP_DESC is " + resp_desc);
                         if (resp_code.equals("0000")) {
                             //最后一次验证，即为第三次验证
-                            startActivity(MainActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession ));
+                            startActivity(MainActivity.newIntent(getApplicationContext(), Constant.iniUrl + websession));
                             dialog.dismiss();
+                            finish();
                         } else {
                             final String des = resp_desc;
                             runOnUiThread(new Runnable() {
@@ -285,4 +293,5 @@ public class LoginActivity extends BaseActivity {
             eventType = parser.next();
         }
     }
+
 }

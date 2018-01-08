@@ -21,8 +21,7 @@ public class Constant {
     public static final String WEBSESSION = "WEBSESSION";
     public static final String NEW_URL = "new_url";
     public static final java.lang.String PSW = "vJo06/qsLDOK5p2FvLqujo8G9eCsjrLJGcg8TGN0QZexSchZjBfneZ1vL4h3BN/EEId5hEBxZWM=";
-    //系统标识
-    public static String SP_ID = "ToEIM_PIC";
+
     //接入地址   拍照端.
     public static  String ssoUrl = "http://121.15.203.82:9210/EIM_PIC/Handlers/SingleSignOnHandler.ashx?Action=SingleSignOnByXML";//首次跳转，进行验证合法性.
     public static String iniUrl = "http://121.15.203.82:9210/EIM_PIC/Handlers/SingleSignOnHandler.ashx?Action=Redirect&SessionId=";//如果验证通过后，第二次跳转，携带验证后的SessionId执行页面跳转.
