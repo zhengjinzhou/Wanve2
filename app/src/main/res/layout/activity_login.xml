@@ -64,7 +64,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_user"
             android:background="@null"
-            android:hint="请输入用户名"
+            android:hint="@string/hint_username"
             android:maxLines="1"
             android:padding="10dp"
             android:singleLine="true" />
@@ -92,7 +92,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@+id/iv_password"
             android:background="@null"
-            android:hint="请输入密码"
+            android:hint="@string/hint_psw"
             android:inputType="textPassword"
             android:maxLines="1"
             android:padding="10dp"

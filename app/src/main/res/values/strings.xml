@@ -3,4 +3,6 @@
     <string name="head_title">深圳市建筑工务署</string>
     <string name="head_content">工程档案数据管理平台</string>
     <string name="eim">(EIM)</string>
+    <string name="hint_username">请输入用户名</string>
+    <string name="hint_psw">请输入密码</string>
 </resources>
