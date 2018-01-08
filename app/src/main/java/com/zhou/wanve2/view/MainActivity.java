@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +99,7 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_index:
                 //startActivity(WebActivity.newIntent(this, "http://121.15.203.82:9210/WAN_MPDA_Pic/PageMain/ProjectList.aspx"));
-                ToastUtil.show(getApplicationContext(), "首页");
+                ToastUtil.show(getApplicationContext(), "当前为首页");
                 break;
 
             case R.id.tv_map:
@@ -415,4 +416,29 @@ public class MainActivity extends BaseActivity {
         public void onPageFinished(WebView view, String url) {
         }
     };
+
+    private long firstTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()){
+            webView.goBack();
+        }else if (keyCode == KeyEvent.KEYCODE_BACK){
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000){
+                ToastUtil.show(getApplicationContext(),"再按一次退出程序");
+                firstTime = secondTime;
+            }else {
+                finish();
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null){
+            webView.destroy();
+        }
+    }
 }
